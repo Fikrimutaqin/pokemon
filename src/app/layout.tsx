@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
+
+// STYLES
 import "./globals.css";
+
+// PROVIDERS
 import Providers from "@/providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// COMPONENTS
+import Header from "@/components/layouts/header/Header";
+import Footer from "@/components/layouts/footer/Footer";
+
+// FONTS
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+// METADATA
 export const metadata: Metadata = {
   title: "Pokomen",
   description: "A premium Pokomen application",
@@ -24,9 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>
-        <Providers>{children}</Providers>
+    <html lang="en" className={plusJakartaSans.variable}>
+      <body className="min-h-screen flex flex-col">
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
