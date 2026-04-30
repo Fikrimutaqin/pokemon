@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import { makeStore } from '@/store/store';
 // Page
-import Home from './page';
+import Home from './home';
 
 const queryClient = new QueryClient({
   defaultOptions: {
