@@ -11,7 +11,9 @@ import "./globals.css";
 // Components
 import Header from "@/components/layouts/header/Header";
 import Footer from "@/components/layouts/footer/Footer";
-import BackToTop from "@/components/common/buttons/BackToTop";
+import dynamic from 'next/dynamic';
+
+const BackToTop = dynamic(() => import('@/components/common/buttons/BackToTop'), { ssr: false });
 
 // Initialize Font
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -33,6 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={plusJakartaSans.variable}>
+      <head>
+        <link rel="preconnect" href="https://raw.githubusercontent.com" />
+        <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
+      </head>
       <body className="min-h-screen flex flex-col">
         <QueryProvider>
           <StoreProvider>

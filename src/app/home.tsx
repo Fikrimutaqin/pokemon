@@ -12,7 +12,9 @@ import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import PokemonCardWrapper from "@/components/common/cards/PokemonCardWrapper";
 import PokemonCardSkeleton from "@/components/common/cards/PokemonCardSkeleton";
 import SearchSection from "@/components/sections/SearchSection";
-import EmptySearch from "@/components/common/empty/EmptySearch";
+import dynamic from 'next/dynamic';
+
+const EmptySearch = dynamic(() => import('@/components/common/empty/EmptySearch'));
 
 export default function Home() {
   // infinite scroll config limit

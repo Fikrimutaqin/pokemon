@@ -54,6 +54,7 @@ export default function PokemonCard({
                         alt={name}
                         fill
                         priority={priority}
+                        fetchPriority={priority ? 'high' : 'auto'}
                         className="object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
                         sizes="(max-width: 768px) 150px, 250px"
                     />
