@@ -92,7 +92,7 @@ export default function Home() {
 
       {isLoading && (
         <>
-          <div className="flex flex-row gap-4 justify-center items-center w-full">
+          <div className="grid col-span-1 lg:flex lg:flex-row gap-4 justify-center items-center w-full">
             <>
               <PokemonCardSkeleton />
               <PokemonCardSkeleton />
