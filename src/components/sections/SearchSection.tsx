@@ -1,25 +1,11 @@
-"use client";
-
-import { useState, useEffect } from 'react';
-import { useDebounce } from '@/hooks/useDebounce';
+// Components
 import BasicInput from '../common/inputs/BasicInput';
+// Types
+import { SearchSectionProps } from '@/types/SearchType';
+// Icons
 import { Search } from 'lucide-react';
 
-export default function SearchSection() {
-    const [searchQuery, setSearchQuery] = useState('');
-    const debouncedSearchQuery = useDebounce(searchQuery, 500);
-
-    const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value);
-    }
-
-    useEffect(() => {
-        if (debouncedSearchQuery) {
-            // call api with the value search...
-            console.log('Searching for:', debouncedSearchQuery);
-        }
-    }, [debouncedSearchQuery])
-
+export default function SearchSection({ value, onChange }: SearchSectionProps) {
     return (
         <section id="search" className="flex flex-col justify-center items-center w-full py-10 px-4 space-y-5">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-white">
@@ -32,8 +18,8 @@ export default function SearchSection() {
                 </div>
 
                 <BasicInput
-                    value={searchQuery}
-                    onChange={handleSearchInput}
+                    value={value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
                     type="text"
                     placeholder="Search for Pokémon, abilities, or types..."
                     className="block w-full py-5 pl-14 pr-5 bg-white border-none rounded-2xl focus:ring-2 focus:ring-primary focus:outline-none text-slate-600 placeholder:text-slate-400 text-lg transition-all"

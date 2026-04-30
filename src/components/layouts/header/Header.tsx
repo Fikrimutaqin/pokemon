@@ -1,12 +1,21 @@
-'use client';
+"use client";
 
+// Next
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+// Redux Toolkit
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+// Framer Motion
 import { motion } from 'framer-motion';
+// Icons
 import { Heart } from 'lucide-react';
 
 export default function Header() {
-    const pathname = usePathname();
+    // Selector for get data from Redux Toolkit
+    const favorites = useAppSelector(state => state.favorite.items);
+    // Dispatch for send data to Redux Toolkit
+    const dispatch = useAppDispatch();
+    // Function to count total favorites
+    const totalFavorites = favorites.length;
 
     return (
         <motion.header
@@ -22,12 +31,19 @@ export default function Header() {
                 </Link>
 
                 <div className="flex items-center space-x-6">
-                    <button className="relative ransition-colors cursor-pointer group">
-                        <Heart className="w-8 h-8 fill-tertiary transition-all" />
-                        <span className="absolute -top-1 -right-1 bg-primary text-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
-                            0
-                        </span>
-                    </button>
+                    <Link href="/collection">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="relative cursor-pointer group p-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors shadow-sm backdrop-blur-md"
+                        >
+                            <Heart className="w-6 h-6 text-white/50 group-hover:text-red-500 group-hover:fill-red-500 transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(239,68,68,0.8)]" />
+
+                            <span className="absolute -top-1.5 -right-1.5 bg-primary text-black text-[11px] font-black h-[22px] w-[22px] rounded-full flex items-center justify-center border-2 border-neutral shadow-lg">
+                                {totalFavorites}
+                            </span>
+                        </motion.button>
+                    </Link>
                 </div>
             </div>
         </motion.header>

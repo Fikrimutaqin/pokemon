@@ -1,13 +1,14 @@
-export interface PokemonType {
+export type PokemonType = {
     name: string;
     color?: string;
 }
 
-export interface PokemonCardProps {
+export type PokemonCardProps = {
     id: string;
     name: string;
     types: string[];
     imageUrl: string;
     backgroundColor?: string;
+    priority?: boolean;
     onClick?: () => void;
 }

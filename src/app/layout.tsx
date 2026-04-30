@@ -1,28 +1,31 @@
+// Core Next
 import type { Metadata } from "next";
+// Redux Toolkit
+import StoreProvider from "@/store/storeProvider";
+// TanStack Query
+import QueryProvider from "@/providers/QueryProvider";
+// Font
 import { Plus_Jakarta_Sans } from "next/font/google";
-
-// STYLES
+// Style
 import "./globals.css";
-
-// PROVIDERS
-import Providers from "@/providers";
-
-// COMPONENTS
+// Components
 import Header from "@/components/layouts/header/Header";
 import Footer from "@/components/layouts/footer/Footer";
+import BackToTop from "@/components/common/buttons/BackToTop";
 
-// FONTS
+// Initialize Font
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
 });
 
-// METADATA
+// Initialize Metadata
 export const metadata: Metadata = {
   title: "Pokomen",
   description: "A premium Pokomen application",
 };
 
+// Root Layout Component
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,11 +34,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={plusJakartaSans.variable}>
       <body className="min-h-screen flex flex-col">
-        <Providers>
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
+        <QueryProvider>
+          <StoreProvider>
+            <Header />
+            {children}
+            <Footer />
+            <BackToTop />
+          </StoreProvider>
+        </QueryProvider>
       </body>
     </html>
   );

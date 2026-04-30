@@ -1,4 +1,5 @@
-import BasicInputType from "@/types/BasicInputType";
+// Types
+import { BasicInputType } from "@/types/BasicInputType";
 
 export default function BasicInput({ placeholder, type, value, className, onChange }: BasicInputType) {
     return (
