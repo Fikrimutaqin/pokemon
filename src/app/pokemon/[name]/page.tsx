@@ -30,6 +30,7 @@ export default function PokemonDetailPage() {
   const [isGeneratingAi, setIsGeneratingAi] = useState(false);
   const [showAi, setShowAi] = useState(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleGenerateAI = async (pokemonData: any, typesList: string[]) => {
     if (aiSummary) {
       setShowAi(!showAi);
@@ -41,7 +42,7 @@ export default function PokemonDetailPage() {
     try {
       const summary = await aiService.generateSummary(pokemonData, typesList);
       setAiSummary(summary);
-    } catch (error) {
+    } catch {
       setAiSummary('Bzzzt! Koneksi Rotom terputus. Coba lagi nanti!');
     } finally {
       setIsGeneratingAi(false);
@@ -194,7 +195,7 @@ export default function PokemonDetailPage() {
                       </div>
                     ) : (
                       <p className="text-gray-300 leading-relaxed text-sm/loose italic">
-                        "{aiSummary}"
+                        &quot;{aiSummary}&quot;
                       </p>
                     )}
                   </div>

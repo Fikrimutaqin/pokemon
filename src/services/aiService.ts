@@ -3,6 +3,9 @@
 // making it feel like the program is actually busy processing something.
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Define types for the data we expect to receive
+import type { PokemonData, StatItem } from '@/services/interface/aiserviceInterface';
+
 export const aiService = {
   /**
    * Generates a smart summary text for a Pokemon.
@@ -12,7 +15,7 @@ export const aiService = {
    * @param types Array containing the Pokemon's types (e.g. ['fire', 'flying'])
    * @returns String containing the Rotom AI analysis
    */
-  generateSummary: async (pokemonData: any, types: string[]): Promise<string> => {
+  generateSummary: async (pokemonData: PokemonData, types: string[]): Promise<string> => {
 
     // 1. Simulate the AI "thinking" for 1.5 seconds (1500 ms).
     // This is crucial to make the loading UI feel natural to the user.
@@ -29,7 +32,7 @@ export const aiService = {
     // Make sure the stats data exists and is an Array
     if (pokemonData?.stats && Array.isArray(pokemonData.stats)) {
       // Loop through each stat one by one (hp, attack, defense, etc.)
-      pokemonData.stats.forEach((s: any) => {
+      pokemonData.stats.forEach((s: StatItem) => {
         // If the current stat value is greater than the highest value we've stored...
         if (s.base_stat > highestStat.value) {
           // ...then make this the new highest stat!
