@@ -13,7 +13,7 @@ import Header from "@/components/layouts/header/Header";
 import Footer from "@/components/layouts/footer/Footer";
 import dynamic from 'next/dynamic';
 
-const BackToTop = dynamic(() => import('@/components/common/buttons/BackToTop'), { ssr: false });
+const BackToTop = dynamic(() => import('@/components/common/buttons/BackToTop'));
 
 // Initialize Font
 const plusJakartaSans = Plus_Jakarta_Sans({
