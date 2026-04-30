@@ -95,7 +95,7 @@ export default function CollectionPage() {
                           </p>
                           {fav.description && (
                             <p className="text-gray-400 text-xs mt-3 line-clamp-2 italic pr-2">
-                              "{fav.description}"
+                              &quot;{fav.description}&quot;
                             </p>
                           )}
                         </div>

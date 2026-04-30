@@ -3,7 +3,7 @@
 // Next
 import Link from 'next/link';
 // Redux Toolkit
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@/store/hooks';
 // Framer Motion
 import { motion } from 'framer-motion';
 // Icons
@@ -12,8 +12,6 @@ import { Heart } from 'lucide-react';
 export default function Header() {
     // Selector for get data from Redux Toolkit
     const favorites = useAppSelector(state => state.favorite.items);
-    // Dispatch for send data to Redux Toolkit
-    const dispatch = useAppDispatch();
     // Function to count total favorites
     const totalFavorites = favorites.length;
 
