@@ -9,11 +9,13 @@ import { useQuery } from '@tanstack/react-query';
 // Service
 import { pokemonService } from '@/services/pokemonServices';
 import { pokemonColorService } from '@/services/pokemonColorService';
+import { aiService } from '@/services/aiService';
 // Hooks
 import { motion } from 'framer-motion';
 import { useAppSelector } from '@/store/hooks';
+import { useState } from 'react';
 // Icon
-import { ArrowLeft, Weight, Ruler, Zap, Heart } from 'lucide-react';
+import { ArrowLeft, Weight, Ruler, Zap, Heart, Sparkles, Bot } from 'lucide-react';
 
 export default function PokemonDetailPage() {
   // Get pokemon name from params
@@ -22,6 +24,29 @@ export default function PokemonDetailPage() {
   // Get favorites from Redux
   const favorites = useAppSelector(state => state.favorite?.items || []);
   const isFavorite = favorites.some(fav => fav.name === params.name);
+
+  // AI State
+  const [aiSummary, setAiSummary] = useState('');
+  const [isGeneratingAi, setIsGeneratingAi] = useState(false);
+  const [showAi, setShowAi] = useState(false);
+
+  const handleGenerateAI = async (pokemonData: any, typesList: string[]) => {
+    if (aiSummary) {
+      setShowAi(!showAi);
+      return;
+    }
+    
+    setIsGeneratingAi(true);
+    setShowAi(true);
+    try {
+      const summary = await aiService.generateSummary(pokemonData, typesList);
+      setAiSummary(summary);
+    } catch (error) {
+      setAiSummary('Bzzzt! Koneksi Rotom terputus. Coba lagi nanti!');
+    } finally {
+      setIsGeneratingAi(false);
+    }
+  };
 
   // React Query - Get Pokemon Detail
   const { data, isLoading, isError } = useQuery({
@@ -76,7 +101,7 @@ export default function PokemonDetailPage() {
         </Link>
 
         {/* Favorite Button */}
-        <Link href={`/pokemon/${name}/favorite`} className="absolute top-24 lg:right-20 right-4 z-20">
+        <Link href={`/pokemon/${data.name}/favorite`} className="absolute top-24 lg:right-20 right-4 z-20">
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -135,6 +160,47 @@ export default function PokemonDetailPage() {
                 </span>
               ))}
             </div>
+
+            {/* AI Generator Button */}
+            <div className="flex justify-center mt-6">
+              <button 
+                onClick={() => handleGenerateAI(data, types)}
+                className="flex items-center gap-2 bg-linear-to-r from-purple-500/10 to-blue-500/10 hover:from-purple-500/20 hover:to-blue-500/20 border border-purple-500/30 text-purple-300 px-5 py-2.5 rounded-full font-semibold transition-all shadow-[0_0_15px_rgba(168,85,247,0.1)] hover:shadow-[0_0_20px_rgba(168,85,247,0.25)] group"
+              >
+                <Sparkles className="w-4 h-4 text-purple-400 group-hover:animate-spin" />
+                Ask Rotom AI
+              </button>
+            </div>
+
+            {/* AI Summary Box */}
+            {showAi && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="mt-6 mx-auto max-w-2xl text-left bg-[#1A1A24] border border-purple-500/20 rounded-2xl p-5 relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-1 h-full bg-linear-to-b from-purple-500 to-blue-500" />
+                <div className="flex items-start gap-4">
+                  <div className="bg-purple-500/10 p-2.5 rounded-xl shrink-0 border border-purple-500/20">
+                    <Bot className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-purple-300 font-bold mb-2 text-xs tracking-widest uppercase">Rotom Pokedex Analysis</h3>
+                    {isGeneratingAi ? (
+                      <div className="flex gap-1.5 items-center h-6">
+                        <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </div>
+                    ) : (
+                      <p className="text-gray-300 leading-relaxed text-sm/loose italic">
+                        "{aiSummary}"
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
