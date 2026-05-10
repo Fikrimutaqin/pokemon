@@ -62,6 +62,25 @@ export default function Home() {
   // Prepare data to display
   const displayData = listData?.pages.flatMap(page => page?.data || []) || [];
 
+  // Skeleton display
+  const PokemonSkeletonCard = (
+    <>
+      <div className="grid grid-cols-1 justify-center items-center w-full lg:hidden">
+        <>
+          <PokemonCardSkeleton />
+        </>
+      </div>
+      <div className="hidden lg:grid-cols-4 gap-3 justify-center items-center w-full lg:grid">
+        <>
+          <PokemonCardSkeleton />
+          <PokemonCardSkeleton />
+          <PokemonCardSkeleton />
+          <PokemonCardSkeleton />
+        </>
+      </div>
+    </>
+  )
+
   return (
     <main className="container mx-auto my-5 pt-16 lg:px-0 px-3 flex flex-col items-center gap-y-7 min-h-screen">
       <SearchSection value={inputValue} onChange={setInputValue} />
@@ -80,12 +99,7 @@ export default function Home() {
         {!isLoading && !isError && displayData.length > 0 && (
           <div ref={observerTarget} className="flex justify-center w-full col-span-full mt-8 mb-10 h-10">
             {isFetchingNextPage && (
-              <div className="flex gap-4 w-full">
-                <PokemonCardSkeleton />
-                <PokemonCardSkeleton />
-                <PokemonCardSkeleton />
-                <PokemonCardSkeleton />
-              </div>
+              PokemonSkeletonCard
             )}
           </div>
         )}
@@ -93,15 +107,7 @@ export default function Home() {
 
 
       {isLoading && (
-        <>
-          <div className="grid col-span-1 lg:flex lg:flex-row gap-4 justify-center items-center w-full">
-            <>
-              <PokemonCardSkeleton />
-              <PokemonCardSkeleton />
-              <PokemonCardSkeleton />
-            </>
-          </div>
-        </>
+        PokemonSkeletonCard
       )}
 
       <div className="flex flex-row gap-4 justify-center items-center w-80">

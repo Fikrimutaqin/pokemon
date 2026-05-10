@@ -3,11 +3,12 @@
 Pokomen is a premium, high-performance Pokedex web application built with modern web technologies. It allows users to explore Pokemon, view detailed statistics, and build their own favorite collections (Dream Teams).
 
 ## ✨ Features
-- **Infinite Scrolling Explorer**: Smoothly scroll through hundreds of Pokemon.
-- **Dynamic Theming**: UI colors automatically adapt based on the Pokemon's elemental type.
+- **Display Pokemon List**: Browse through a comprehensive list of Pokemon with smooth infinite scrolling.
+- **Detailed Pokemon View**: Explore detailed statistics, types, weight, height, and sprites for each Pokemon.
+- **Advanced Universal Search**: Easily search for Pokemon by name, type, or ability.
+- **Favorite Collection**: Save, nickname, and delete your favorite Pokemon with data persisting across reloads.
 - **Smart Rotom AI**: A simulated AI assistant that generates battle summaries based on Pokemon stats.
-- **Favorite Collection**: Save (nickname), and delete your favorite Pokemon. Data persists across reloads.
-- **Micro-animations**: Premium fluid animations using Framer Motion.
+- **Micro-animations**: Premium fluid animations using Framer Motion for a better user experience.
 
 ---
 
